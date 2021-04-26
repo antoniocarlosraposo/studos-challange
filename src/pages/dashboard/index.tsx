@@ -2,6 +2,7 @@ import React from 'react';
 import {SearchBar} from 'react-native-elements';
 
 import Header from '../../components/Header';
+import TaskCard from '../../components/TaskCard';
 import {
   Container,
   TaskContainer,
@@ -23,7 +24,9 @@ const Dashboard: React.FC = () => {
           <FilterText>Em andamento</FilterText>
           <FilterText>Finalizadas</FilterText>
         </FilterContainer>
-        <TempContainer />
+        <TempContainer>
+          <TaskCard />
+        </TempContainer>
       </TaskContainer>
     </Container>
   );

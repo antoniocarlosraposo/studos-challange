@@ -25,7 +25,7 @@ export const FilterContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
+  padding: 15px;
   padding-bottom: 10px;
 `;
 
