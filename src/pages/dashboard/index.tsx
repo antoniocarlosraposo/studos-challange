@@ -1,7 +1,15 @@
 import React from 'react';
+import {SearchBar} from 'react-native-elements';
 
 import Header from '../../components/Header';
-import {Container, TaskContainer, HeaderText} from './style';
+import {
+  Container,
+  TaskContainer,
+  HeaderText,
+  FilterContainer,
+  FilterText,
+  TempContainer,
+} from './style';
 
 const Dashboard: React.FC = () => {
   return (
@@ -9,6 +17,13 @@ const Dashboard: React.FC = () => {
       <Header />
       <TaskContainer>
         <HeaderText>Próximas entregas</HeaderText>
+        <SearchBar platform="android" placeholder="Pesquisar" />
+        <FilterContainer>
+          <FilterText>Novas</FilterText>
+          <FilterText>Em andamento</FilterText>
+          <FilterText>Finalizadas</FilterText>
+        </FilterContainer>
+        <TempContainer />
       </TaskContainer>
     </Container>
   );
