@@ -26,6 +26,7 @@ const Dashboard: React.FC = () => {
         </FilterContainer>
         <TempContainer>
           <TaskCard />
+          <TaskCard />
         </TempContainer>
       </TaskContainer>
     </Container>
