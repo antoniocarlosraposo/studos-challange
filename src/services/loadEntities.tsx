@@ -1,7 +1,8 @@
+import {response} from '../values/mock';
 import api from './api';
 
-interface Data {
-  dados: Entities;
+interface Dados {
+  data: Entities;
 }
 
 interface Entities {
@@ -9,6 +10,7 @@ interface Entities {
 }
 
 interface Entity {
+  date: string;
   started: boolean;
   title: string;
   subject: string;
@@ -18,10 +20,11 @@ interface Entity {
   type: number;
 }
 
-const cleanData = (data: Data) =>
-  data.dados.entities.map(
+const cleanData = (dados: Dados) => {
+  return dados.data.entities.map(
     (entity): Entity => {
       const parsedEntity: Entity = {
+        date: entity.date,
         started: entity.started,
         title: entity.title,
         subject: entity.subject,
@@ -33,10 +36,13 @@ const cleanData = (data: Data) =>
       return parsedEntity;
     },
   );
+};
 
 const loadEntities = async (): Promise<Entity[]> => {
   try {
-    const {data} = await api.get('/v3/865096e8-cdb8-49d7-b548-6488db4c8129');
+    const data = response;
+    // const {data} = await api.get('/v3');
+    // console.log(data);
     return cleanData(data);
   } catch (error) {
     throw error.message;

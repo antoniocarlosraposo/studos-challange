@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {SearchBar} from 'react-native-elements';
+import {loadEntities} from '../../services/loadEntities';
 
 import Header from '../../components/Header';
 import TaskCard from '../../components/TaskCard';
@@ -12,7 +13,33 @@ import {
   TempContainer,
 } from './style';
 
+interface Entities {
+  entities: Entity[];
+}
+
+interface Entity {
+  date: string;
+  started: boolean;
+  title: string;
+  subject: string;
+  teacher: string;
+  questions: number;
+  questionsCompleted: number;
+  type: number;
+}
+
 const Dashboard: React.FC = () => {
+  const [entities, setEntities] = useState<Entity[]>();
+
+  const fetchEntities = async () => {
+    const response = await loadEntities();
+    setEntities(response);
+  };
+
+  useEffect(() => {
+    fetchEntities();
+  }, []);
+
   return (
     <Container>
       <Header />
