@@ -55,6 +55,7 @@ const Dashboard: React.FC = () => {
             contentContainerStyle={{flex: 1}}
             renderItem={({item}) => (
               <TaskCard
+                type={item.type}
                 date={item.date}
                 title={item.title}
                 teacher={item.teacher}

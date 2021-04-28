@@ -17,12 +17,18 @@ interface Props {
   teacher: string;
   // questions: number;
   // questionsCompleted: number;
-  // type: number;
+  type: number;
 }
 
-const TaskCard: React.FC<Props> = ({date, title, subject, teacher}: Props) => {
+const TaskCard: React.FC<Props> = ({
+  date,
+  title,
+  subject,
+  teacher,
+  type,
+}: Props) => {
   return (
-    <Container>
+    <Container type={type}>
       <TimerContainer>
         <TimerText>{date}</TimerText>
         <TimerText>Icone</TimerText>

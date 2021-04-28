@@ -1,7 +1,11 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
-  background: #1e45c7;
+interface Props {
+  type: number;
+}
+
+export const Container = styled.View<Props>`
+  background: ${props => (props.type === 1 ? '#1e45c7;' : '#0273D6')};
   padding: 10px;
   border-radius: 6px;
   width: 372px;
