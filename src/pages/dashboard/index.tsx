@@ -12,6 +12,7 @@ import {
   FilterContainer,
   FilterText,
   TempContainer,
+  FilterButton,
 } from './style';
 
 interface Entity {
@@ -27,6 +28,7 @@ interface Entity {
 
 const Dashboard: React.FC = () => {
   const [entities, setEntities] = useState<Entity[]>();
+  const [filteredEntities, setFilteredentities] = useState<Entity[]>();
 
   const fetchEntities = async () => {
     const response = await loadEntities();
@@ -37,6 +39,23 @@ const Dashboard: React.FC = () => {
     fetchEntities();
   }, []);
 
+  const onFilter = (filter: string) => {
+    if (filter === 'Novas') {
+      const temp = entities?.filter(item => item.started === false);
+      setFilteredentities(temp);
+    }
+    if (filter === 'Em andamento') {
+      const temp = entities?.filter(item => item.started === true);
+      setFilteredentities(temp);
+    }
+    if (filter === 'Finalizadas') {
+      const temp = entities?.filter(
+        item => item.questions === item.questionsCompleted,
+      );
+      setFilteredentities(temp);
+    }
+  };
+
   return (
     <Container>
       <Header />
@@ -44,13 +63,19 @@ const Dashboard: React.FC = () => {
         <HeaderText>Próximas entregas</HeaderText>
         <SearchBar platform="android" placeholder="Pesquisar" />
         <FilterContainer>
-          <FilterText>Novas</FilterText>
-          <FilterText>Em andamento</FilterText>
-          <FilterText>Finalizadas</FilterText>
+          <FilterButton onPress={() => onFilter('Novas')}>
+            <FilterText>Novas</FilterText>
+          </FilterButton>
+          <FilterButton onPress={() => onFilter('Em andamento')}>
+            <FilterText>Em andamento</FilterText>
+          </FilterButton>
+          <FilterButton onPress={() => onFilter('Finalizadas')}>
+            <FilterText>Finalizadas</FilterText>
+          </FilterButton>
         </FilterContainer>
         <TempContainer>
           <FlatList
-            data={entities}
+            data={filteredEntities}
             keyExtractor={item => item.title}
             contentContainerStyle={{flex: 1}}
             renderItem={({item}) => (

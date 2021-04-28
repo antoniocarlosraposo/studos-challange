@@ -17,7 +17,7 @@ export const HeaderText = styled.Text`
   font-weight: 700;
   font-size: 18px;
   color: #414042;
-  padding-bottom: 5px;
+  padding-bottom: 10px;
 `;
 
 export const FilterContainer = styled.View`
@@ -25,8 +25,10 @@ export const FilterContainer = styled.View`
   align-items: center;
   justify-content: space-between;
   padding: 15px;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
 `;
+
+export const FilterButton = styled.TouchableOpacity``;
 
 export const FilterText = styled.Text`
   font-family: Roboto;
