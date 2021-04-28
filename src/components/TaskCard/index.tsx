@@ -9,19 +9,28 @@ import {
   TitleText,
 } from './styles';
 
-const TaskCard: React.FC = () => {
+interface Props {
+  date: string;
+  // started: boolean;
+  title: string;
+  subject: string;
+  teacher: string;
+  // questions: number;
+  // questionsCompleted: number;
+  // type: number;
+}
+
+const TaskCard: React.FC<Props> = ({date, title, subject, teacher}: Props) => {
   return (
     <Container>
       <TimerContainer>
-        <TimerText>Até 02/06 8h30</TimerText>
+        <TimerText>{date}</TimerText>
         <TimerText>Icone</TimerText>
       </TimerContainer>
-      <TitleText>
-        Lista 03 - Fisica Moderna - Modulo 1 - Modulo 2 - Aula 4
-      </TitleText>
-      <SubjectText>Matemática</SubjectText>
+      <TitleText>{title}</TitleText>
+      <SubjectText>{subject}</SubjectText>
       <TempContainer>
-        <SubjectText>Ricardo</SubjectText>
+        <SubjectText>{teacher}</SubjectText>
         <SubjectText>0/100</SubjectText>
       </TempContainer>
     </Container>

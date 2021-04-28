@@ -8,8 +8,7 @@ export const TaskContainer = styled.View`
   background: #dcecfa;
   border-radius: 6px;
   flex: 1;
-  padding: 10px;
-  padding-bottom: 0;
+  padding: 0 10px;
 `;
 
 export const HeaderText = styled.Text`
@@ -36,7 +35,6 @@ export const FilterText = styled.Text`
   font-size: 16px;
 `;
 
-export const TempContainer = styled.Text`
+export const TempContainer = styled.ScrollView`
   flex: 1;
-  background: #fff;
 `;

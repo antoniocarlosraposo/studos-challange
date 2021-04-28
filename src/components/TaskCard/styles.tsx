@@ -5,6 +5,8 @@ export const Container = styled.View`
   padding: 10px;
   border-radius: 6px;
   width: 372px;
+  height: 130px;
+  margin-bottom: 2px;
 `;
 
 export const TimerContainer = styled.View`

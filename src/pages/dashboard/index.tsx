@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {SearchBar} from 'react-native-elements';
+import {FlatList} from 'react-native-gesture-handler';
 import {loadEntities} from '../../services/loadEntities';
 
 import Header from '../../components/Header';
@@ -12,10 +13,6 @@ import {
   FilterText,
   TempContainer,
 } from './style';
-
-interface Entities {
-  entities: Entity[];
-}
 
 interface Entity {
   date: string;
@@ -52,8 +49,19 @@ const Dashboard: React.FC = () => {
           <FilterText>Finalizadas</FilterText>
         </FilterContainer>
         <TempContainer>
-          <TaskCard />
-          <TaskCard />
+          <FlatList
+            data={entities}
+            keyExtractor={item => item.title}
+            contentContainerStyle={{flex: 1}}
+            renderItem={({item}) => (
+              <TaskCard
+                date={item.date}
+                title={item.title}
+                teacher={item.teacher}
+                subject={item.subject}
+              />
+            )}
+          />
         </TempContainer>
       </TaskContainer>
     </Container>
