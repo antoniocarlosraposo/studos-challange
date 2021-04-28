@@ -29,10 +29,13 @@ interface Entity {
 const Dashboard: React.FC = () => {
   const [entities, setEntities] = useState<Entity[]>();
   const [filteredEntities, setFilteredentities] = useState<Entity[]>();
+  const types = ['Novas', 'Em andamento', 'Finalizadas'];
+  const [active, setActive] = useState(types[0]);
 
   const fetchEntities = async () => {
     const response = await loadEntities();
     setEntities(response);
+    setFilteredentities(response);
   };
 
   useEffect(() => {
@@ -43,16 +46,19 @@ const Dashboard: React.FC = () => {
     if (filter === 'Novas') {
       const temp = entities?.filter(item => item.started === false);
       setFilteredentities(temp);
+      setActive('Novas');
     }
     if (filter === 'Em andamento') {
       const temp = entities?.filter(item => item.started === true);
       setFilteredentities(temp);
+      setActive('Em andamento');
     }
     if (filter === 'Finalizadas') {
       const temp = entities?.filter(
         item => item.questions === item.questionsCompleted,
       );
       setFilteredentities(temp);
+      setActive('Finalizadas');
     }
   };
 
@@ -64,13 +70,17 @@ const Dashboard: React.FC = () => {
         <SearchBar platform="android" placeholder="Pesquisar" />
         <FilterContainer>
           <FilterButton onPress={() => onFilter('Novas')}>
-            <FilterText>Novas</FilterText>
+            <FilterText active={active === 'Novas'}>Novas</FilterText>
           </FilterButton>
           <FilterButton onPress={() => onFilter('Em andamento')}>
-            <FilterText>Em andamento</FilterText>
+            <FilterText active={active === 'Em andamento'}>
+              Em andamento
+            </FilterText>
           </FilterButton>
           <FilterButton onPress={() => onFilter('Finalizadas')}>
-            <FilterText>Finalizadas</FilterText>
+            <FilterText active={active === 'Finalizadas'}>
+              Finalizadas
+            </FilterText>
           </FilterButton>
         </FilterContainer>
         <TempContainer>
