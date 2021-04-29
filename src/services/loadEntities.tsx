@@ -20,11 +20,22 @@ interface Entity {
   type: number;
 }
 
+interface ParsedEntity {
+  date: Date;
+  started: boolean;
+  title: string;
+  subject: string;
+  teacher: string;
+  questions: number;
+  questionsCompleted: number;
+  type: number;
+}
+
 const cleanData = (dados: Dados) => {
   return dados.data.entities.map(
-    (entity): Entity => {
-      const parsedEntity: Entity = {
-        date: entity.date,
+    (entity): ParsedEntity => {
+      const parsedEntity: ParsedEntity = {
+        date: new Date(entity.date),
         started: entity.started,
         title: entity.title,
         subject: entity.subject,
@@ -38,7 +49,7 @@ const cleanData = (dados: Dados) => {
   );
 };
 
-const loadEntities = async (): Promise<Entity[]> => {
+const loadEntities = async (): Promise<ParsedEntity[]> => {
   try {
     const data = response;
     // const {data} = await api.get('/v3');

@@ -39,11 +39,14 @@ export const FilterText = styled.Text<TextProps>`
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
-  color: #414042
-    ${({active}) =>
-      active &&
-      `
+  border-bottom-width: 2px;
+  border-bottom-color: transparent;
+  color: #414042;
+  ${({active}) =>
+    active &&
+    `
     color: #339CF7;
+    border-bottom-color: #339CF7;
   `};
 `;
 

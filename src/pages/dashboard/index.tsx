@@ -16,7 +16,7 @@ import {
 } from './style';
 
 interface Entity {
-  date: string;
+  date: Date;
   started: boolean;
   title: string;
   subject: string;
@@ -91,7 +91,7 @@ const Dashboard: React.FC = () => {
             renderItem={({item}) => (
               <TaskCard
                 type={item.type}
-                date={item.date}
+                date={item.date.toString()}
                 title={item.title}
                 teacher={item.teacher}
                 subject={item.subject}
