@@ -10,7 +10,7 @@ export const Container = styled.View<Props>`
   border-radius: 6px;
   width: 372px;
   height: 130px;
-  margin-bottom: 2px;
+  margin-bottom: 10px;
 `;
 
 export const TimerContainer = styled.View`

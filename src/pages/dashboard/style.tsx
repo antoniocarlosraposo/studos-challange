@@ -22,6 +22,7 @@ export const HeaderText = styled.Text`
   font-weight: 700;
   font-size: 18px;
   color: ${props => props.theme.PRIMARY_TEXT_COLOR};
+  padding-top: 10px;
   padding-bottom: 10px;
 `;
 

@@ -33,16 +33,19 @@ const Dashboard: React.FC = () => {
   const [filteredEntities, setFilteredentities] = useState<Entity[]>();
   const types = ['Novas', 'Em andamento', 'Finalizadas'];
   const [active, setActive] = useState(types[0]);
-  const [theme, setTheme] = useState(dark);
+  const [theme, setTheme] = useState(light);
+  const [isOn, setIsOn] = useState(false);
 
   const toggleTheme = () => {
+    setIsOn(theme.title === 'light');
     setTheme(theme.title === 'light' ? dark : light);
   };
 
   const fetchEntities = async () => {
     const response = await loadEntities();
     setEntities(response);
-    setFilteredentities(response);
+    const isSorted = response.sort((a, b) => b.date - a.date);
+    setFilteredentities(isSorted);
   };
 
   useEffect(() => {
@@ -72,7 +75,7 @@ const Dashboard: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <Container>
-        <Header toggleTheme={toggleTheme} theme={theme} />
+        <Header toggleTheme={toggleTheme} theme={isOn} />
         <TaskContainer>
           <HeaderText>Próximas entregas</HeaderText>
           <SearchBar platform="android" placeholder="Pesquisar" />
@@ -99,7 +102,7 @@ const Dashboard: React.FC = () => {
               renderItem={({item}) => (
                 <TaskCard
                   type={item.type}
-                  date={item.date.toString()}
+                  date={item.date.toLocaleString()}
                   title={item.title}
                   teacher={item.teacher}
                   subject={item.subject}

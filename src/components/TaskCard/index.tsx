@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Icon from 'react-native-vector-icons/Ionicons';
 import {
   Container,
   SubjectText,
@@ -31,7 +31,7 @@ const TaskCard: React.FC<Props> = ({
     <Container type={type}>
       <TimerContainer>
         <TimerText>{date}</TimerText>
-        <TimerText>Icone</TimerText>
+        <Icon name="cloud-done" size={20} color="#fff" />
       </TimerContainer>
       <TitleText>{title}</TitleText>
       <SubjectText>{subject}</SubjectText>
