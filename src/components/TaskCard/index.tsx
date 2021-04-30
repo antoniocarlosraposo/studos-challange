@@ -15,8 +15,8 @@ interface Props {
   title: string;
   subject: string;
   teacher: string;
-  // questions: number;
-  // questionsCompleted: number;
+  questions: number;
+  questionsCompleted: number;
   type: number;
 }
 
@@ -26,7 +26,11 @@ const TaskCard: React.FC<Props> = ({
   subject,
   teacher,
   type,
+  questions,
+  questionsCompleted,
 }: Props) => {
+  const percentage = (questionsCompleted * 100) / questions;
+
   return (
     <Container type={type}>
       <TimerContainer>
@@ -37,7 +41,7 @@ const TaskCard: React.FC<Props> = ({
       <SubjectText>{subject}</SubjectText>
       <TempContainer>
         <SubjectText>{teacher}</SubjectText>
-        <SubjectText>0/100</SubjectText>
+        <SubjectText>{Math.round(percentage)}/100</SubjectText>
       </TempContainer>
     </Container>
   );

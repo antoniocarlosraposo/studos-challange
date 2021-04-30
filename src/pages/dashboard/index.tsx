@@ -44,7 +44,7 @@ const Dashboard: React.FC = () => {
   const fetchEntities = async () => {
     const response = await loadEntities();
     setEntities(response);
-    const isSorted = response.sort((a, b) => b.date - a.date);
+    const isSorted = response.sort((a, b) => a.date - b.date);
     setFilteredentities(isSorted);
   };
 
@@ -102,10 +102,12 @@ const Dashboard: React.FC = () => {
               renderItem={({item}) => (
                 <TaskCard
                   type={item.type}
-                  date={item.date.toLocaleString()}
+                  date={item.date.toLocaleString('pt-BR')}
                   title={item.title}
                   teacher={item.teacher}
                   subject={item.subject}
+                  questions={item.questions}
+                  questionsCompleted={item.questionsCompleted}
                 />
               )}
             />

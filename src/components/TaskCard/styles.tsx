@@ -4,7 +4,7 @@ interface Props {
   type: number;
 }
 
-export const Container = styled.View<Props>`
+export const Container = styled.TouchableOpacity<Props>`
   background: ${props => (props.type === 1 ? '#1e45c7;' : '#0273D6')};
   padding: 10px;
   border-radius: 6px;

@@ -19,6 +19,7 @@ const Header: React.FC<Props> = ({toggleTheme, theme}) => {
   return (
     <Container>
       <ProfileContainer>
+        <Portrait />
         <ProfileText>Olá, João Paulo</ProfileText>
       </ProfileContainer>
 

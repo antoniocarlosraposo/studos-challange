@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {response} from '../values/mock';
 import api from './api';
 
@@ -31,11 +32,16 @@ interface ParsedEntity {
   type: number;
 }
 
+const escapeRegExp = string => {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+};
+
 const cleanData = (dados: Dados) => {
   return dados.data.entities.map(
     (entity): ParsedEntity => {
+      const newDate = entity.date.replace(/([/])/g, '-');
       const parsedEntity: ParsedEntity = {
-        date: new Date(entity.date),
+        date: new Date(newDate),
         started: entity.started,
         title: entity.title,
         subject: entity.subject,
