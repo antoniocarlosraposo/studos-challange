@@ -5,11 +5,12 @@ interface TextProps {
 }
 
 export const Container = styled.View`
+  background: ${props => props.theme.PRIMARY_BACKGROUND_COLOR};
   flex: 1;
 `;
 
 export const TaskContainer = styled.View`
-  background: #dcecfa;
+  background: ${props => props.theme.PRIMARY_BOX_COLOR};
   border-radius: 6px;
   flex: 1;
   padding: 0 10px;
@@ -20,7 +21,7 @@ export const HeaderText = styled.Text`
   font-style: normal;
   font-weight: 700;
   font-size: 18px;
-  color: #414042;
+  color: ${props => props.theme.PRIMARY_TEXT_COLOR};
   padding-bottom: 10px;
 `;
 
@@ -41,7 +42,7 @@ export const FilterText = styled.Text<TextProps>`
   font-size: 16px;
   border-bottom-width: 2px;
   border-bottom-color: transparent;
-  color: #414042;
+  color: ${props => props.theme.PRIMARY_TEXT_COLOR};
   ${({active}) =>
     active &&
     `

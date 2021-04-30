@@ -1,17 +1,17 @@
 import React from 'react';
+import {Switch} from 'react-native';
 
-import {Container, Theme, PortraitButton, Portrait, ThemeText} from './styles';
+import {Container} from './styles';
 
-const Header: React.FC = () => {
+interface Props {
+  toggleTheme(): void;
+  theme: any;
+}
+
+const Header: React.FC<Props> = ({toggleTheme, theme}) => {
   return (
     <Container>
-      <PortraitButton>
-        <Portrait />
-      </PortraitButton>
-
-      <Theme>
-        <ThemeText>0</ThemeText>
-      </Theme>
+      <Switch onValueChange={toggleTheme} value={theme} />
     </Container>
   );
 };
