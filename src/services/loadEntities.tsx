@@ -61,7 +61,7 @@ const cleanData = (dados: Dados) => {
 const loadEntities = async (): Promise<ParsedEntity[]> => {
   try {
     const data = response;
-    // const {data} = await api.get('/v3');
+    // const {data} = await api.get('/v3/865096e8-cdb8-49d7-b548-6488db4c8129');
     // console.log(data);
     return cleanData(data);
   } catch (error) {

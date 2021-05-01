@@ -33,13 +33,6 @@ const Dashboard: React.FC = () => {
   const [filteredEntities, setFilteredentities] = useState<Entity[]>();
   const types = ['Novas', 'Em andamento', 'Finalizadas'];
   const [active, setActive] = useState(types[0]);
-  const [theme, setTheme] = useState(light);
-  const [isOn, setIsOn] = useState(false);
-
-  const toggleTheme = () => {
-    setIsOn(theme.title === 'light');
-    setTheme(theme.title === 'light' ? dark : light);
-  };
 
   const fetchEntities = async () => {
     const response = await loadEntities();
@@ -73,48 +66,45 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container>
-        <Header toggleTheme={toggleTheme} theme={isOn} />
-        <TaskContainer>
-          <HeaderText>Próximas entregas</HeaderText>
-          <SearchBar platform="android" placeholder="Pesquisar" />
-          <FilterContainer>
-            <FilterButton onPress={() => onFilter('Novas')}>
-              <FilterText active={active === 'Novas'}>Novas</FilterText>
-            </FilterButton>
-            <FilterButton onPress={() => onFilter('Em andamento')}>
-              <FilterText active={active === 'Em andamento'}>
-                Em andamento
-              </FilterText>
-            </FilterButton>
-            <FilterButton onPress={() => onFilter('Finalizadas')}>
-              <FilterText active={active === 'Finalizadas'}>
-                Finalizadas
-              </FilterText>
-            </FilterButton>
-          </FilterContainer>
-          <TempContainer>
-            <FlatList
-              data={filteredEntities}
-              keyExtractor={item => item.title}
-              contentContainerStyle={{flex: 1}}
-              renderItem={({item}) => (
-                <TaskCard
-                  type={item.type}
-                  date={item.date.toLocaleString('pt-BR')}
-                  title={item.title}
-                  teacher={item.teacher}
-                  subject={item.subject}
-                  questions={item.questions}
-                  questionsCompleted={item.questionsCompleted}
-                />
-              )}
-            />
-          </TempContainer>
-        </TaskContainer>
-      </Container>
-    </ThemeProvider>
+    <Container>
+      <TaskContainer>
+        <HeaderText>Próximas entregas</HeaderText>
+        <SearchBar platform="android" placeholder="Pesquisar" />
+        <FilterContainer>
+          <FilterButton onPress={() => onFilter('Novas')}>
+            <FilterText active={active === 'Novas'}>Novas</FilterText>
+          </FilterButton>
+          <FilterButton onPress={() => onFilter('Em andamento')}>
+            <FilterText active={active === 'Em andamento'}>
+              Em andamento
+            </FilterText>
+          </FilterButton>
+          <FilterButton onPress={() => onFilter('Finalizadas')}>
+            <FilterText active={active === 'Finalizadas'}>
+              Finalizadas
+            </FilterText>
+          </FilterButton>
+        </FilterContainer>
+        <TempContainer>
+          <FlatList
+            data={filteredEntities}
+            keyExtractor={item => item.title}
+            contentContainerStyle={{flex: 1}}
+            renderItem={({item}) => (
+              <TaskCard
+                type={item.type}
+                date={item.date.toLocaleString('pt-BR')}
+                title={item.title}
+                teacher={item.teacher}
+                subject={item.subject}
+                questions={item.questions}
+                questionsCompleted={item.questionsCompleted}
+              />
+            )}
+          />
+        </TempContainer>
+      </TaskContainer>
+    </Container>
   );
 };
 
