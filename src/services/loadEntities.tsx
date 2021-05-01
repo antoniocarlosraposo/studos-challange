@@ -32,16 +32,19 @@ interface ParsedEntity {
   type: number;
 }
 
-const escapeRegExp = string => {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const validateDate = (s: string) => {
+  const [year, month, day] = s.split('-');
+  if (day.length === 4 && year.length === 2) return `${day}-${month}-${year}`;
+  return s;
 };
 
 const cleanData = (dados: Dados) => {
   return dados.data.entities.map(
     (entity): ParsedEntity => {
       const newDate = entity.date.replace(/([/])/g, '-');
+      const validatedDate = validateDate(newDate);
       const parsedEntity: ParsedEntity = {
-        date: new Date(newDate),
+        date: new Date(validatedDate),
         started: entity.started,
         title: entity.title,
         subject: entity.subject,
