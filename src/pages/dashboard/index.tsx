@@ -1,12 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {SearchBar} from 'react-native-elements';
 import {FlatList} from 'react-native-gesture-handler';
-import {ThemeProvider} from 'styled-components';
 import {loadEntities} from '../../services/loadEntities';
-import Header from '../../components/Header';
 import TaskCard from '../../components/TaskCard';
-import dark from '../../styles/dark';
-import light from '../../styles/light';
 import {
   Container,
   TaskContainer,
@@ -31,45 +27,72 @@ interface Entity {
 const Dashboard: React.FC = () => {
   const [entities, setEntities] = useState<Entity[]>();
   const [filteredEntities, setFilteredentities] = useState<Entity[]>();
+  const [searchFilteredEntities, setsearchFilteredEntities] = useState<
+    Entity[]
+  >();
   const types = ['Novas', 'Em andamento', 'Finalizadas'];
   const [active, setActive] = useState(types[0]);
+  const [search, setSearch] = useState('');
 
   const fetchEntities = async () => {
     const response = await loadEntities();
     setEntities(response);
     const isSorted = response.sort((a, b) => a.date - b.date);
     setFilteredentities(isSorted);
+    setsearchFilteredEntities(isSorted);
+  };
+
+  const onFilter = (filter: string) => {
+    if (filter === types[0]) {
+      const temp = entities?.filter(item => item.started === false);
+      setFilteredentities(temp);
+      setsearchFilteredEntities(temp);
+      setActive(types[0]);
+    }
+    if (filter === types[1]) {
+      const temp = entities?.filter(item => item.started === true);
+      setFilteredentities(temp);
+      setsearchFilteredEntities(temp);
+      setActive(types[1]);
+    }
+    if (filter === types[2]) {
+      const temp = entities?.filter(
+        item => item.questions === item.questionsCompleted,
+      );
+      setFilteredentities(temp);
+      setsearchFilteredEntities(temp);
+      setActive(types[2]);
+    }
+  };
+
+  const searchFilter = (text: string) => {
+    if (text) {
+      const temp = filteredEntities?.filter(item =>
+        item.subject.toLowerCase().match(text),
+      );
+      setsearchFilteredEntities(temp);
+      setSearch(text);
+    } else {
+      setsearchFilteredEntities(filteredEntities);
+      setSearch(text);
+    }
   };
 
   useEffect(() => {
     fetchEntities();
   }, []);
 
-  const onFilter = (filter: string) => {
-    if (filter === 'Novas') {
-      const temp = entities?.filter(item => item.started === false);
-      setFilteredentities(temp);
-      setActive('Novas');
-    }
-    if (filter === 'Em andamento') {
-      const temp = entities?.filter(item => item.started === true);
-      setFilteredentities(temp);
-      setActive('Em andamento');
-    }
-    if (filter === 'Finalizadas') {
-      const temp = entities?.filter(
-        item => item.questions === item.questionsCompleted,
-      );
-      setFilteredentities(temp);
-      setActive('Finalizadas');
-    }
-  };
-
   return (
     <Container>
       <TaskContainer>
         <HeaderText>Próximas entregas</HeaderText>
-        <SearchBar platform="android" placeholder="Pesquisar" />
+        <SearchBar
+          onChangeText={text => searchFilter(text)}
+          onClear={text => searchFilter('')}
+          platform="android"
+          placeholder="Pesquisar"
+          value={search}
+        />
         <FilterContainer>
           <FilterButton onPress={() => onFilter('Novas')}>
             <FilterText active={active === 'Novas'}>Novas</FilterText>
@@ -85,9 +108,11 @@ const Dashboard: React.FC = () => {
             </FilterText>
           </FilterButton>
         </FilterContainer>
-        <TempContainer>
+        <TempContainer
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}>
           <FlatList
-            data={filteredEntities}
+            data={searchFilteredEntities}
             keyExtractor={item => item.title}
             contentContainerStyle={{flex: 1}}
             renderItem={({item}) => (

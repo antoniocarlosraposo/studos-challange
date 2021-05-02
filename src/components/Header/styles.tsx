@@ -14,7 +14,7 @@ export const ProfileContainer = styled.View`
   align-items: center;
 `;
 
-export const Portrait = styled.View`
+export const Portrait = styled.Image`
   width: 50px;
   height: 50px;
   background: #c3c3c3;
