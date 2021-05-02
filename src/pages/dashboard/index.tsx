@@ -68,7 +68,7 @@ const Dashboard: React.FC = () => {
   const searchFilter = (text: string) => {
     if (text) {
       const temp = filteredEntities?.filter(item =>
-        item.subject.toLowerCase().match(text),
+        item.title.toLowerCase().match(text),
       );
       setsearchFilteredEntities(temp);
       setSearch(text);
@@ -108,26 +108,23 @@ const Dashboard: React.FC = () => {
             </FilterText>
           </FilterButton>
         </FilterContainer>
-        <TempContainer
-          showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}>
-          <FlatList
-            data={searchFilteredEntities}
-            keyExtractor={item => item.title}
-            contentContainerStyle={{flex: 1}}
-            renderItem={({item}) => (
-              <TaskCard
-                type={item.type}
-                date={item.date.toLocaleString('pt-BR')}
-                title={item.title}
-                teacher={item.teacher}
-                subject={item.subject}
-                questions={item.questions}
-                questionsCompleted={item.questionsCompleted}
-              />
-            )}
-          />
-        </TempContainer>
+        <FlatList
+          data={searchFilteredEntities}
+          keyExtractor={item => item.title}
+          style={{flex: 1}}
+          contentContainerStyle={{flexGrow: 1}}
+          renderItem={({item}) => (
+            <TaskCard
+              type={item.type}
+              date={item.date.toLocaleString('pt-BR')}
+              title={item.title}
+              teacher={item.teacher}
+              subject={item.subject}
+              questions={item.questions}
+              questionsCompleted={item.questionsCompleted}
+            />
+          )}
+        />
       </TaskContainer>
     </Container>
   );
