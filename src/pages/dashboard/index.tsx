@@ -9,7 +9,6 @@ import {
   HeaderText,
   FilterContainer,
   FilterText,
-  TempContainer,
   FilterButton,
 } from './style';
 
@@ -68,7 +67,7 @@ const Dashboard: React.FC = () => {
   const searchFilter = (text: string) => {
     if (text) {
       const temp = filteredEntities?.filter(item =>
-        item.title.toLowerCase().match(text),
+        item.title.toLowerCase().match(text.toLocaleLowerCase()),
       );
       setsearchFilteredEntities(temp);
       setSearch(text);
@@ -88,24 +87,20 @@ const Dashboard: React.FC = () => {
         <HeaderText>Próximas entregas</HeaderText>
         <SearchBar
           onChangeText={text => searchFilter(text)}
-          onClear={text => searchFilter('')}
+          onClear={() => searchFilter('')}
           platform="android"
           placeholder="Pesquisar"
           value={search}
         />
         <FilterContainer>
-          <FilterButton onPress={() => onFilter('Novas')}>
-            <FilterText active={active === 'Novas'}>Novas</FilterText>
+          <FilterButton onPress={() => onFilter(types[0])}>
+            <FilterText active={active === types[0]}>Novas</FilterText>
           </FilterButton>
-          <FilterButton onPress={() => onFilter('Em andamento')}>
-            <FilterText active={active === 'Em andamento'}>
-              Em andamento
-            </FilterText>
+          <FilterButton onPress={() => onFilter(types[1])}>
+            <FilterText active={active === types[1]}>Em andamento</FilterText>
           </FilterButton>
-          <FilterButton onPress={() => onFilter('Finalizadas')}>
-            <FilterText active={active === 'Finalizadas'}>
-              Finalizadas
-            </FilterText>
+          <FilterButton onPress={() => onFilter(types[2])}>
+            <FilterText active={active === types[2]}>Finalizadas</FilterText>
           </FilterButton>
         </FilterContainer>
         <FlatList
@@ -115,8 +110,8 @@ const Dashboard: React.FC = () => {
           contentContainerStyle={{flexGrow: 1}}
           renderItem={({item}) => (
             <TaskCard
-              type={item.type}
               date={item.date.toLocaleString('pt-BR')}
+              type={item.type}
               title={item.title}
               teacher={item.teacher}
               subject={item.subject}
